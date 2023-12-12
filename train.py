@@ -1,8 +1,9 @@
-import fire
+import hydra
 import joblib
 import numpy as np
 import pandas as pd
 import torch
+from omegaconf import DictConfig
 
 
 class DiamondsDataset(torch.utils.data.Dataset):
@@ -39,7 +40,8 @@ def train_loop(dataloader, model, loss_fn, optimizer):
     return np.mean(losses)
 
 
-def train_model(batch_size, learning_rate, epochs):
+@hydra.main(version_base=None, config_path="conf", config_name="config")
+def train_model(cfg: DictConfig):
     diamonds = DiamondsDataset("diamonds.csv")
     train_size = int(0.8 * len(diamonds))
     test_size = len(diamonds) - train_size
@@ -49,17 +51,23 @@ def train_model(batch_size, learning_rate, epochs):
 
     X_features = diamonds.X.size()[1]
     model = torch.nn.Sequential(
-        torch.nn.Linear(X_features, 8), torch.nn.ReLU(), torch.nn.Linear(8, 1)
+        torch.nn.Linear(X_features, 32),
+        torch.nn.ReLU(),
+        torch.nn.Linear(32, 16),
+        torch.nn.ReLU(),
+        torch.nn.Linear(16, 8),
+        torch.nn.ReLU(),
+        torch.nn.Linear(8, 1),
     )
-    data_train = torch.utils.data.DataLoader(train, batch_size=batch_size)
+    data_train = torch.utils.data.DataLoader(train, batch_size=cfg["params"].batch_size)
     loss = torch.nn.MSELoss()
     losses = []
-    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.Adam(model.parameters(), lr=cfg["params"].learning_rate)
 
-    for i in range(epochs):
+    for i in range(cfg["params"].epochs):
         losses.append(train_loop(data_train, model, loss, optimizer))
     joblib.dump(model, "model.h5")
 
 
 if __name__ == "__main__":
-    fire.Fire(train_model)
+    train_model()
