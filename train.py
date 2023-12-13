@@ -42,12 +42,12 @@ def train_loop(dataloader, model, loss_fn, optimizer):
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def train_model(cfg: DictConfig):
-    diamonds = DiamondsDataset("diamonds.csv")
+    diamonds = DiamondsDataset("data/diamonds.csv")
     train_size = int(0.8 * len(diamonds))
     test_size = len(diamonds) - train_size
 
     train, test = torch.utils.data.random_split(diamonds, [train_size, test_size])
-    joblib.dump(diamonds.X[test.indices], "X_test.h5")
+    joblib.dump(diamonds.X[test.indices], "data/X_test.h5")
 
     X_features = diamonds.X.size()[1]
     model = torch.nn.Sequential(
