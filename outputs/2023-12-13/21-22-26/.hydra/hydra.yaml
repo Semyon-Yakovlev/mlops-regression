@@ -140,7 +140,7 @@ hydra:
     - path: ''
       schema: structured
       provider: schema
-    output_dir: C:\Users\Семён\Desktop\MLOPS\outputs\2023-12-12\09-18-15
+    output_dir: C:\Users\Семён\Desktop\MLOPS\outputs\2023-12-13\21-22-26
     choices:
       hydra/env: default
       hydra/callbacks: null
