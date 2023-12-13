@@ -66,7 +66,7 @@ def train_model(cfg: DictConfig):
 
     for i in range(cfg["params"].epochs):
         losses.append(train_loop(data_train, model, loss, optimizer))
-    joblib.dump(model, "model.h5")
+    joblib.dump(model, "data/model.h5")
 
 
 if __name__ == "__main__":
