@@ -1,10 +1,14 @@
 import fire
 import joblib
+from dvc.api import DVCFileSystem
 
 
 def predict():
-    X_test = joblib.load("data/X_test.h5")
-    model = joblib.load("data/model.h5")
+    fs = DVCFileSystem("https://github.com/Semyon-Yakovlev/MLOPS/")
+    with fs.open("data/X_test.h5") as f:
+        X_test = joblib.load(f)
+    with fs.open("data/model.h5") as f:
+        model = joblib.load(f)
     return model.forward(X_test).view(-1).detach().numpy()
 
 

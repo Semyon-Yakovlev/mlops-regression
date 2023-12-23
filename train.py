@@ -3,6 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import torch
+from dvc.api import DVCFileSystem
 from omegaconf import DictConfig
 
 
@@ -42,11 +43,14 @@ def train_loop(dataloader, model, loss_fn, optimizer):
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def train_model(cfg: DictConfig):
-    diamonds = DiamondsDataset("data/diamonds.csv")
+    fs = DVCFileSystem("https://github.com/Semyon-Yakovlev/MLOPS/")
+    with fs.open("data/diamonds.csv") as f:
+        diamonds = DiamondsDataset(f)
     train_size = int(0.8 * len(diamonds))
     test_size = len(diamonds) - train_size
 
     train, test = torch.utils.data.random_split(diamonds, [train_size, test_size])
+    data_train = torch.utils.data.DataLoader(train, batch_size=cfg["params"].batch_size)
     joblib.dump(diamonds.X[test.indices], "data/X_test.h5")
 
     X_features = diamonds.X.size()[1]
@@ -59,11 +63,10 @@ def train_model(cfg: DictConfig):
         torch.nn.ReLU(),
         torch.nn.Linear(8, 1),
     )
-    data_train = torch.utils.data.DataLoader(train, batch_size=cfg["params"].batch_size)
+
     loss = torch.nn.MSELoss()
     losses = []
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg["params"].learning_rate)
-
     for i in range(cfg["params"].epochs):
         losses.append(train_loop(data_train, model, loss, optimizer))
     joblib.dump(model, "data/model.h5")
