@@ -1,2 +1,0 @@
-[2023-12-22 17:53:40,862][oauth2client.client][INFO] - access_token is expired. Now: 2023-12-22 14:53:40.862205, token_expiry: 2023-12-13 19:41:26
-[2023-12-22 17:53:40,863][oauth2client.client][INFO] - Refreshing access_token

@@ -895,6 +895,26 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 category = "main"
+description = "A set of python modules for machine learning and data mining"
+name = "scikit-learn"
+optional = false
+python-versions = ">=3.8"
+version = "1.3.2"
+
+[package.dependencies]
+joblib = ">=1.1.1"
+numpy = ">=1.17.3,<2.0"
+scipy = ">=1.5.0"
+threadpoolctl = ">=2.0.0"
+
+[package.extras]
+benchmark = ["matplotlib (>=3.1.3)", "pandas (>=1.0.5)", "memory-profiler (>=0.57.0)"]
+docs = ["matplotlib (>=3.1.3)", "scikit-image (>=0.16.2)", "pandas (>=1.0.5)", "seaborn (>=0.9.0)", "memory-profiler (>=0.57.0)", "sphinx (>=6.0.0)", "sphinx-copybutton (>=0.5.2)", "sphinx-gallery (>=0.10.1)", "numpydoc (>=1.2.0)", "Pillow (>=7.1.2)", "pooch (>=1.6.0)", "sphinx-prompt (>=1.3.0)", "sphinxext-opengraph (>=0.4.2)", "plotly (>=5.14.0)"]
+examples = ["matplotlib (>=3.1.3)", "scikit-image (>=0.16.2)", "pandas (>=1.0.5)", "seaborn (>=0.9.0)", "pooch (>=1.6.0)", "plotly (>=5.14.0)"]
+tests = ["matplotlib (>=3.1.3)", "scikit-image (>=0.16.2)", "pandas (>=1.0.5)", "pytest (>=7.1.2)", "pytest-cov (>=2.9.0)", "ruff (>=0.0.272)", "black (>=23.3.0)", "mypy (>=1.3)", "pyamg (>=4.0.0)", "numpydoc (>=1.2.0)", "pooch (>=1.6.0)"]
+
+[[package]]
+category = "main"
 description = "Fundamental algorithms for scientific computing in Python"
 name = "scipy"
 optional = false
@@ -1026,6 +1046,14 @@ tests = ["pytest", "pytest-cov"]
 
 [[package]]
 category = "main"
+description = "threadpoolctl"
+name = "threadpoolctl"
+optional = false
+python-versions = ">=3.8"
+version = "3.2.0"
+
+[[package]]
+category = "main"
 description = "Python Library for Tom's Obvious, Minimal Language"
 name = "toml"
 optional = false
@@ -1059,6 +1087,21 @@ typing-extensions = "*"
 
 [package.extras]
 opt-einsum = ["opt-einsum (>=3.3)"]
+
+[[package]]
+category = "main"
+description = "A library for providing a simple interface to create new metrics and an easy-to-use toolkit for metric computations and checkpointing."
+name = "torcheval"
+optional = false
+python-versions = ">=3.7"
+version = "0.0.7"
+
+[package.dependencies]
+typing-extensions = "*"
+
+[package.extras]
+dev = ["numpy", "pre-commit", "pytest", "pytest-timeout", "pytest-cov", "Cython (>=0.28.5)", "scikit-learn (>=0.22)", "scikit-image (>=0.18.3)", "torchtnt-nightly"]
+image = ["torchvision"]
 
 [[package]]
 category = "main"
@@ -1138,7 +1181,7 @@ docs = ["sphinx (>=3.5)", "sphinx (<7.2.5)", "jaraco.packaging (>=9.3)", "rst.li
 testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-ruff", "jaraco.itertools", "jaraco.functools", "more-itertools", "big-o", "pytest-ignore-flaky", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
 
 [metadata]
-content-hash = "340c098f2cc49333434e961f2cec02f6cab1ee429d60dc7fe472fce54e16960f"
+content-hash = "a36cf568dd658ba18d9b5e5fa4048f8d31645b0b3b41f3ddd17e7557fbf51d2e"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -1205,6 +1248,7 @@ pywin32 = []
 pyyaml = []
 querystring-parser = []
 requests = []
+scikit-learn = []
 scipy = []
 six = []
 smmap = []
@@ -1213,9 +1257,11 @@ sqlparse = []
 sympy = []
 tabulate = []
 termcolor = []
+threadpoolctl = []
 toml = []
 tomli = []
 torch = []
+torcheval = []
 typing-extensions = []
 urllib3 = []
 virtualenv = []
