@@ -1,0 +1,5 @@
+outs:
+- md5: dc6a25f1175d794a0e87cff27bfd5ba5
+  size: 484975
+  hash: md5
+  path: predict_diamonds.csv
