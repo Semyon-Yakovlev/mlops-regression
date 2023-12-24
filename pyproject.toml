@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "mlops"
+name = "mlops-regression"
 version = "1.1.0"
 description = "mlops"
 authors = ["Semyon-Yakovlev <patt1337gg@gmail.com>"]
