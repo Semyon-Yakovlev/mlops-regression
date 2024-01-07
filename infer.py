@@ -6,10 +6,10 @@ from pandas import DataFrame
 
 def predict():
     fs = DVCFileSystem("https://github.com/Semyon-Yakovlev/MLOPS/")
-    with fs.open("data/X_test.h5") as f:
-        X_test = load(f)
-    with fs.open("models/model.h5") as f:
-        model = load(f)
+    with fs.open("data/X_test.h5") as file:
+        X_test = load(file)
+    with fs.open("models/model.h5") as file:
+        model = load(file)
     data = DataFrame(
         X_test.detach().numpy(), columns=["carat", "depth", "table", "x", "y", "z"]
     )

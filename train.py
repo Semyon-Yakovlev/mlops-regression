@@ -43,8 +43,8 @@ def train_model(cfg: DictConfig):
         log_param("learning_rate", cfg["params"].learning_rate)
         log_param("epochs", cfg["params"].epochs)
         fs = DVCFileSystem("https://github.com/Semyon-Yakovlev/MLOPS/")
-        with fs.open("data/diamonds.csv") as f:
-            diamonds = DiamondsDataset(f)
+        with fs.open("data/diamonds.csv") as file:
+            diamonds = DiamondsDataset(file)
         train_size = int(0.8 * len(diamonds))
         test_size = len(diamonds) - train_size
 
