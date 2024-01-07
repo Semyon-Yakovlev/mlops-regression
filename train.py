@@ -12,6 +12,7 @@ from torch import float32, from_numpy, nn, optim, utils
 from torcheval.metrics import R2Score
 
 from hydra import main
+from models.model import model_spec
 
 
 class DiamondsDataset(utils.data.Dataset):
@@ -53,16 +54,7 @@ def train_model(cfg: DictConfig):
         dump(diamonds.X[test.indices], "data/X_test.h5")
 
         X_features = diamonds.X.size()[1]
-        model = nn.Sequential(
-            nn.Linear(X_features, 32),
-            nn.ReLU(),
-            nn.Linear(32, 16),
-            nn.ReLU(),
-            nn.Linear(16, 8),
-            nn.ReLU(),
-            nn.Linear(8, 1),
-        )
-
+        model = model_spec(X_features)
         loss_fn = nn.MSELoss()
         optimizer = optim.Adam(model.parameters(), lr=cfg["params"].learning_rate)
         for i in range(cfg["params"].epochs):
